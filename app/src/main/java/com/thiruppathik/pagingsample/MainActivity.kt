@@ -7,11 +7,19 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.thiruppathik.pagingsample.model.User
+import com.thiruppathik.pagingsample.ui.ItemClickListener
+import com.thiruppathik.pagingsample.ui.UserDetailFragment
 import com.thiruppathik.pagingsample.ui.UserListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+/**
+ * Created by Thiruppathi.K on 6/23/2018.
+ */
+
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +33,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view.setNavigationItemSelectedListener(this)
 
-        supportFragmentManager.beginTransaction()
+        supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
                 .add(R.id.fragmentcontainer, UserListFragment(), "user_list")
-                .addToBackStack("user_list").commit()
+                .commit()
+    }
+
+    override fun onItemClick(position: Int, user: User?) {
+        val fragment = UserDetailFragment()
+        if (user != null) {
+            val args = Bundle()
+            args.putSerializable("userdata", user)
+            fragment.setArguments(args)
+        }
+        supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                .replace(R.id.fragmentcontainer, fragment, "user_details")
+                .addToBackStack("user_details").commit()
     }
 
     override fun onBackPressed() {
@@ -39,7 +59,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
     }

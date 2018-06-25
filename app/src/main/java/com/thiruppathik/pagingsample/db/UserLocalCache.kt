@@ -1,9 +1,12 @@
 package com.thiruppathik.pagingsample.db
 
-import android.arch.lifecycle.LiveData
 import android.util.Log
 import com.thiruppathik.pagingsample.model.User
 import java.util.concurrent.Executor
+
+/**
+ * Created by Thiruppathi.K on 6/24/2018.
+ */
 
 class UserLocalCache(private val userDao: UserDao, private val ioExecutor: Executor) {
     fun insert(userData: List<User>, insertFinished: () -> Unit) {
@@ -14,7 +17,7 @@ class UserLocalCache(private val userDao: UserDao, private val ioExecutor: Execu
         }
     }
 
-    fun userDataByPage(page: Int): LiveData<List<User>> {
+    fun userDataByPage(page: Int): List<User> {
         return userDao.userDataByPage(page)
     }
 }

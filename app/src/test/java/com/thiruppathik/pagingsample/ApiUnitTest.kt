@@ -1,8 +1,6 @@
 package com.thiruppathik.pagingsample
 
-import android.support.test.InstrumentationRegistry
-import android.support.test.filters.MediumTest
-import android.support.test.runner.AndroidJUnit4
+import android.test.mock.MockContext
 import com.thiruppathik.pagingsample.api.UserResponse
 import com.thiruppathik.pagingsample.api.UserService
 import com.thiruppathik.pagingsample.db.UserDatabase
@@ -10,19 +8,15 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import retrofit2.Response
 
-
 /**
- * Instrumented test, which will execute on an Android device.
+ * Example local unit test, which will execute on the development machine (host).
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-@MediumTest
-@RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
 
+class ApiUnitTest {
     var response: Response<UserResponse>? = null
 
     @Before
@@ -43,7 +37,7 @@ class ExampleInstrumentedTest {
         data.forEach {
             it.page = response!!.body()!!.page
         }
-        val context = InstrumentationRegistry.getTargetContext()
+        val context = MockContext().applicationContext
         UserDatabase.getInstance(context).reposDao().insert(data)
 
         data.forEach {

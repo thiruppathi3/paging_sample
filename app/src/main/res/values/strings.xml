@@ -6,4 +6,6 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="dummy_data">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at convallis risus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+        Praesent quis tortor non elit sagittis pulvinar. Donec mattis molestie sem vel pulvinar.</string>
 </resources>
